@@ -141,9 +141,9 @@ ENV KREW_ROOT=/home/argocd/krew
 ENV PATH="${KREW_ROOT}/bin:$PATH"
 
 # plugin versions
-ARG HELM_DIFF_VERSION="3.9.5"
-ARG HELM_GIT_VERSION="0.15.1"
-ARG HELM_SECRETS_VERSION="4.6.0"
+ARG HELM_DIFF_VERSION="3.12.1"
+ARG HELM_GIT_VERSION="1.4.0"
+ARG HELM_SECRETS_VERSION="4.6.5"
 
 RUN \
   helm-v3 plugin install https://github.com/databus23/helm-diff   --version ${HELM_DIFF_VERSION} && \
