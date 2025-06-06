@@ -275,6 +275,8 @@ if [[ "${HELMFILE_GLOBAL_OPTIONS}" ]]; then
 fi
 
 externalFilesList=()
+externalFile+=$PARAM_externalFile
+
 for i in $(seq 0 $((anzahl - 1))); do
   varname="PARAM_externalFiles_$i"
   value="${!varname}"   # Indirekte Expansion: liest den Wert der Variablen mit Namen $varname
