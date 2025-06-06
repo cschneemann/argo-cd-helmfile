@@ -157,6 +157,11 @@ fi
 
 SCRIPT_NAME=$(basename "${0}")
 
+# export all parameters from json
+echo "$ARGOCD_APP_PARAMETERS" | jq -r '.[] | select(.string) | "export PARAM_\(.name | gsub("[^A-Za-z0-9_]"; "_") )=\"\(.string)\""' | while read -r line; do
+  eval "$line"
+done
+
 # export vars unprefixed
 # ARGOCD_ENV_
 # https://argo-cd.readthedocs.io/en/latest/operator-manual/upgrading/2.3-2.4/
