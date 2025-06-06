@@ -157,7 +157,22 @@ fi
 
 SCRIPT_NAME=$(basename "${0}")
 
+echo "###########################"
+echo "###########################"
+echo "###########################"
+echo "###########################"
+echo "###########################"
+echoerr "###########################"
+echoerr "###########################"
+echoerr "###########################"
+echoerr "###########################"
+echoerr "###########################"
+echo "START DEBUG ARGOCD_APP_PARAMETERS:"
+echoerr "START DEBUG ARGOCD_APP_PARAMETERS:"
 echoerr $ARGOCD_APP_PARAMETERS
+echo $ARGOCD_APP_PARAMETERS
+echo "END DEBUG ARGOCD_APP_PARAMETERS"
+echoerr "END DEBUG ARGOCD_APP_PARAMETERS"
 
 # export all parameters from json
 echo "$ARGOCD_APP_PARAMETERS" | jq -r '.[] | select(.string) | "export PARAM_\(.name | gsub("[^A-Za-z0-9_]"; "_") )=\"\(.string)\""' | while read -r line; do
