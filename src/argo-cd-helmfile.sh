@@ -552,6 +552,11 @@ case $phase in
     "title": "externalFiles",
     "tooltip": "set files that should be copied over from second repo and be set as `--state-value-file`",
     "collectionType": "array"
+  },
+  {
+    "name": "externalFile",
+    "title": "externalFile",
+    "tooltip": "set file that should be copied over from second repo and be set as `--state-value-file`",
   }
 
 ]
