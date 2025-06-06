@@ -279,7 +279,7 @@ if [[ -v externalFiles ]]; then
     for eFile in ${externalFiles}; do
         state_file=$(find ../ -iwholename "*${eFile}")
         if [[ -f "$state_file" ]]; then
-            helmfile="${helmfile} --state-file ${state_file}"
+            helmfile="${helmfile} --state-values-file ${state_file}"
         else
             echoerr "file ${eFile} not found"
         fi
