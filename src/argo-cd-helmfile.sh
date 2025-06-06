@@ -556,7 +556,7 @@ case $phase in
   {
     "name": "externalFile",
     "title": "externalFile",
-    "tooltip": "set file that should be copied over from second repo and be set as `--state-value-file`",
+    "tooltip": "set file that should be copied over from second repo and be set as `--state-value-file`"
   }
 
 ]
