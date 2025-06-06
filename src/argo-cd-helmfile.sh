@@ -274,6 +274,18 @@ if [[ "${HELMFILE_GLOBAL_OPTIONS}" ]]; then
   helmfile="${helmfile} ${HELMFILE_GLOBAL_OPTIONS}"
 fi
 
+if [[ -v externalFiles ]]; then
+    echoerr "starting search for externalFiles"
+    for eFile in ${externalFiles}; do
+        state_file=$(find ../ -iwholename "*${eFile}")
+        if [[ -f "$state_file" ]]; then
+            helmfile="${helmfile} --state-file ${state_file}"
+        else
+            echoerr "file ${eFile} not found"
+        fi
+    done
+fi
+
 if [[ -v HELMFILE_HELMFILE ]]; then
   helmfile="${helmfile} --file ${HELMFILE_HELMFILE_HELMFILED}"
   HELMFILE_HELMFILE_STRATEGY=${HELMFILE_HELMFILE_STRATEGY:=REPLACE}
@@ -298,18 +310,6 @@ KUBE_VERSION=$(echo "${KUBE_VERSION}" | sed 's/[^0-9\.]*//g')
 
 # set home variable to ensure apps do NOT overlap settings/repos/etc
 export HOME="${HELM_HOME}"
-
-if [[ -v externalFiles ]]; then
-    echoerr "starting search for externalFiles"
-    for eFile in ${externalFiles}; do
-        state_file=$(find ../ -iwholename "*${eFile}")
-        if [[ -f "$state_file" ]]; then
-            helmfile="${helmfile} --state-file ${state_file}"
-        else
-            echoerr "file ${eFile} not found"
-        fi
-    done
-fi
 
 echoerr "starting ${phase}"
 
