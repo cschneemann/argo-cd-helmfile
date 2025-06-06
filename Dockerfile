@@ -100,6 +100,8 @@ ARG KUBECTL_VERSION="v1.31.1"
 # https://github.com/kubernetes-sigs/krew/releases/
 ARG KREW_VERSION="v0.4.5"
 
+ARG GO_ARCH="amd64"
+
 # wget -qO "/usr/local/bin/jq"       "https://github.com/stedolan/jq/releases/download/jq-${JQ_VERSION}/jq-linux64" && \
 RUN export GO_ARCH=$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')
 RUN wget -qO-                          "https://get.helm.sh/helm-${HELM2_VERSION}-linux-${GO_ARCH}.tar.gz" | tar zxv --strip-components=1 -C /tmp linux-${GO_ARCH}/helm && mv /tmp/helm /usr/local/bin/helm-v2
