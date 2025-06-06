@@ -299,6 +299,18 @@ KUBE_VERSION=$(echo "${KUBE_VERSION}" | sed 's/[^0-9\.]*//g')
 # set home variable to ensure apps do NOT overlap settings/repos/etc
 export HOME="${HELM_HOME}"
 
+if [[ -v externalFiles ]]; then
+    echoerr "starting search for externalFiles"
+    for eFile in ${externalFiles}; do
+        state_file=$(find ../ -iwholename "*${eFile}")
+        if [[ -f "$state_file" ]]; then
+            helmfile="${helmfile} --state-file ${state_file}"
+        else
+            echoerr "file ${eFile} not found"
+        fi
+    done
+fi
+
 echoerr "starting ${phase}"
 
 case $phase in
@@ -526,7 +538,14 @@ case $phase in
     "title": "HELMFILE_USE_CONTEXT_NAMESPACE",
     "tooltip": "do not set helmfile namespace to ARGOCD_APP_NAMESPACE (for multi-namespace apps)",
     "itemType": "boolean"
+  },
+  {
+    "name": "externalFiles",
+    "title": "externalFiles",
+    "tooltip": "set files that should be copied over from second repo and be set as `--state-value-file`"
+    "collectionType": "array"
   }
+
 ]
 EOF
 
