@@ -157,6 +157,8 @@ fi
 
 SCRIPT_NAME=$(basename "${0}")
 
+echoerr $ARGOCD_APP_PARAMETERS
+
 # export all parameters from json
 echo "$ARGOCD_APP_PARAMETERS" | jq -r '.[] | select(.string) | "export PARAM_\(.name | gsub("[^A-Za-z0-9_]"; "_") )=\"\(.string)\""' | while read -r line; do
   eval "$line"
