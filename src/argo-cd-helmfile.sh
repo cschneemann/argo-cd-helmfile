@@ -274,9 +274,15 @@ if [[ "${HELMFILE_GLOBAL_OPTIONS}" ]]; then
   helmfile="${helmfile} ${HELMFILE_GLOBAL_OPTIONS}"
 fi
 
-if [[ -v externalFiles ]]; then
+externalFilesList=()
+for i in $(seq 0 $((anzahl - 1))); do
+  varname="PARAM_externalFiles_$i"
+  value="${!varname}"   # Indirekte Expansion: liest den Wert der Variablen mit Namen $varname
+  externalFilesList+=("$value")
+done
+if [[ "${externalFilesList}" ]]; then
     echoerr "starting search for externalFiles"
-    for eFile in ${externalFiles}; do
+    for eFile in ${externalFilesList}; do
         state_file=$(find ../ -iwholename "*${eFile}")
         if [[ -f "$state_file" ]]; then
             helmfile="${helmfile} --state-values-file ${state_file}"
