@@ -83,7 +83,7 @@ ARG AGE_VERSION="v1.2.1"
 #ARG JQ_VERSION="1.6"
 ARG HELM2_VERSION="v2.17.0"
 # https://github.com/helm/helm/releases
-ARG HELM3_VERSION="v3.18.2"
+ARG HELM3_VERSION="v3.17.3"
 # https://github.com/helmfile/helmfile/releases
 ARG HELMFILE_VERSION="1.1.1"
 # https://github.com/kubernetes-sigs/kustomize/releases
@@ -143,7 +143,7 @@ ENV PATH="${KREW_ROOT}/bin:$PATH"
 # plugin versions
 ARG HELM_DIFF_VERSION="3.12.1"
 ARG HELM_GIT_VERSION="1.4.0"
-#ARG HELM_SECRETS_VERSION="4.6.5"
+ARG HELM_SECRETS_VERSION="4.6.5"
 
 RUN \
   helm-v3 plugin install https://github.com/databus23/helm-diff   --version ${HELM_DIFF_VERSION} && \
@@ -151,7 +151,7 @@ RUN \
   kubectl krew update && \
   mkdir -p ${KREW_ROOT}/bin && \
   true
-#  helm-v3 plugin install https://github.com/jkroepke/helm-secrets --version ${HELM_SECRETS_VERSION} && \
+  helm-v3 plugin install https://github.com/jkroepke/helm-secrets --version ${HELM_SECRETS_VERSION} && \
 
 # array is exec form, string is shell form
 # this binary in injected via a shared folder with the repo server
