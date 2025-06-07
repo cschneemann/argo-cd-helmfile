@@ -83,6 +83,7 @@ ARG AGE_VERSION="v1.2.1"
 #ARG JQ_VERSION="1.6"
 ARG HELM2_VERSION="v2.17.0"
 # https://github.com/helm/helm/releases
+# use <3.18 atm because of info given about Platformcommand and command usage in plugin
 ARG HELM3_VERSION="v3.17.3"
 # https://github.com/helmfile/helmfile/releases
 ARG HELMFILE_VERSION="1.1.1"
@@ -148,10 +149,10 @@ ARG HELM_SECRETS_VERSION="4.6.5"
 RUN \
   helm-v3 plugin install https://github.com/databus23/helm-diff   --version ${HELM_DIFF_VERSION} && \
   helm-v3 plugin install https://github.com/aslafy-z/helm-git     --version ${HELM_GIT_VERSION} && \
+  helm-v3 plugin install https://github.com/jkroepke/helm-secrets --version ${HELM_SECRETS_VERSION} && \
   kubectl krew update && \
   mkdir -p ${KREW_ROOT}/bin && \
   true
-  helm-v3 plugin install https://github.com/jkroepke/helm-secrets --version ${HELM_SECRETS_VERSION} && \
 
 # array is exec form, string is shell form
 # this binary in injected via a shared folder with the repo server
